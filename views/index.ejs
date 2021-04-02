@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Image</title>
+    <script defer src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script defer src="/javascripts/index.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="swiper-container" dir="ltr">
+        <div class="swiper-wrapper">
+          <% images.forEach(image => { %>
+          <div class="swiper-slide">
+            <img
+              class="swiper-image"
+              src="data:<%= image.contentType %>;base64,<%= image.imageBase64 %>"
+            />
+          </div>
+          <% }) %>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <div class="custom">
+        <form
+          action="/images/uploads"
+          enctype="multipart/form-data"
+          method="POST"
+        >
+          <div class="upload">
+            <div class="upload-item image-input">
+              <label for="file" class="upload-file"
+                >+<input
+                  type="file"
+                  id="file"
+                  name="images"
+                  multiple
+                  onchange="handleChangeFiles(this.files)"
+              /></label>
+            </div>
+          </div>
+          <div>
+            <input type="submit" value="Submit" class="upload-button" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
